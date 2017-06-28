@@ -38,7 +38,7 @@
         android:ems="10"
         android:fontFamily="sans-serif-condensed"
         android:text="↑"
-        android:textSize="72sp"
+        android:textSize="60sp"
         android:gravity="center"
         android:textColor="@android:color/white"
         android:onClick="screenTapped"
