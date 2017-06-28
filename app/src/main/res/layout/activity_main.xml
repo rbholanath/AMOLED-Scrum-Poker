@@ -40,7 +40,7 @@
             android:textColor="@android:color/white"
             android:textSize="68sp"
             android:onClick="onButtonClick"
-            android:text="0.5"/>
+            android:text="½"/>
 
         <Button
             android:layout_width="0dp"
