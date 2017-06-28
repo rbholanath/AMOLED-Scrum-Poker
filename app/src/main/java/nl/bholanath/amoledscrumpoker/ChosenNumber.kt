@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.TextView
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.content.Intent
+import android.graphics.Color
+import android.view.View
 import android.widget.EditText
 
 class ChosenNumber : AppCompatActivity()
@@ -13,6 +15,7 @@ class ChosenNumber : AppCompatActivity()
         const val FONT_SIZE_SMALL = 235.0f
         const val FONT_SIZE_MEDIUM = 350.0f
         const val FONT_SIZE_LARGE = 500.0f
+        const val TEXT_COLOR = Color.WHITE
     }
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -32,5 +35,11 @@ class ChosenNumber : AppCompatActivity()
             2 -> textView.textSize = ChosenNumber.FONT_SIZE_MEDIUM
             3 -> textView.textSize = ChosenNumber.FONT_SIZE_SMALL
         }
+    }
+
+    fun screenTapped(view: View?)
+    {
+        val textView = findViewById(R.id.editText) as TextView
+        textView.setTextColor(ChosenNumber.TEXT_COLOR)
     }
 }
