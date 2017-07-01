@@ -21,6 +21,7 @@
         android:layout_marginTop="32dp">
 
         <Button
+            android:id="@+id/button0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -32,6 +33,7 @@
             android:textSize="68sp"/>
 
         <Button
+            android:id="@+id/button1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,6 +45,7 @@
             android:text="½"/>
 
         <Button
+            android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -68,6 +71,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <Button
+            android:id="@+id/button3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -79,6 +83,7 @@
             android:text="2"/>
 
         <Button
+            android:id="@+id/button4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -90,6 +95,7 @@
             android:text="3"/>
 
         <Button
+            android:id="@+id/button5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -115,6 +121,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <Button
+            android:id="@+id/button6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -126,6 +133,7 @@
             android:text="8"/>
 
         <Button
+            android:id="@+id/button7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -137,6 +145,7 @@
             android:text="13"/>
 
         <Button
+            android:id="@+id/button8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -161,6 +170,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <Button
+            android:id="@+id/button9"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -172,6 +182,7 @@
             android:text="40"/>
 
         <Button
+            android:id="@+id/button10"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -183,6 +194,7 @@
             android:text="100"/>
 
         <Button
+            android:id="@+id/button11"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -193,4 +205,33 @@
             android:onClick="onButtonClick"
             android:text="∞"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonxl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="XL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toRightOf="@+id/button12"
+        app:layout_constraintVertical_bias="0.51"/>
+
+    <Button
+        android:id="@+id/buttonnumbers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.508"/>
 </android.support.constraint.ConstraintLayout>
