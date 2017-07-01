@@ -7,8 +7,8 @@ import android.graphics.Color
 import android.view.View
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
-
-
+import kotlinx.android.synthetic.main.activity_chosen_number.textView
+import kotlinx.android.synthetic.main.activity_chosen_number.textView2
 
 class ChosenNumber : AppCompatActivity()
 {
@@ -39,10 +39,9 @@ class ChosenNumber : AppCompatActivity()
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun screenTapped(view: View?)
     {
-        val textView = findViewById(R.id.textView) as TextView
-
         if (textView.currentTextColor != ChosenNumber.TEXT_COLOR_HIDDEN)
             return
 
@@ -51,7 +50,6 @@ class ChosenNumber : AppCompatActivity()
         objectAnimator.setDuration(1000)
         objectAnimator.start()
 
-        val textView2 = findViewById(R.id.textView2) as TextView
         val objectAnimator2 = ObjectAnimator.ofInt(textView2, "textColor", ChosenNumber.TEXT_COLOR, ChosenNumber.TEXT_COLOR_HIDDEN)
         objectAnimator2.setEvaluator(ArgbEvaluator())
         objectAnimator2.setDuration(1000)
