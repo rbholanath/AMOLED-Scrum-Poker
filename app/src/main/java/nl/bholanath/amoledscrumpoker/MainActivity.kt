@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()
 {
-    companion object {
+    companion object
+    {
         const val CHOSEN_VALUE = "nl.bholanath.amoledscrumpoker.message"
         val REGULAR_NUMBERS = arrayOf("0", "½", "1", "2", "3", "5", "8", "13", "20", "40", "100", "∞")
         val T_SHIRT = arrayOf("XXS", "XS", "S", "M", "L", "XL", "XXL", "∞", "?")
@@ -30,7 +31,9 @@ class MainActivity : AppCompatActivity()
     fun onButtonClick(view: View?)
     {
         if (view !is Button)
+        {
             return
+        }
 
         val intent = Intent(this, ChosenNumber::class.java)
 
@@ -58,7 +61,9 @@ class MainActivity : AppCompatActivity()
     private fun switchMode(shouldLastRowBeEnabled: Boolean, strings: Array<String>)
     {
         if (_lastRowEnabled == shouldLastRowBeEnabled)
+        {
             return
+        }
 
         toggleLastRow()
 
