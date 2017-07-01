@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.content.Intent
+import android.support.design.widget.BottomNavigationView
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()
@@ -22,31 +24,7 @@ class MainActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        buttonnumbers.setOnClickListener()
-        {
-            if (_lastRowEnabled)
-                return@setOnClickListener
-
-            toggleLastRow()
-
-            for ((index, value) in MainActivity.REGULAR_NUMBERS.withIndex())
-            {
-                switchButton(index, value)
-            }
-        }
-
-        buttonxl.setOnClickListener()
-        {
-            if (!_lastRowEnabled)
-                return@setOnClickListener
-
-            toggleLastRow()
-
-            for ((index, value) in MainActivity.T_SHIRT.withIndex())
-            {
-                switchButton(index, value)
-            }
-        }
+        bottom_navigation.setOnNavigationItemSelectedListener { bottomNavigation(it) }
     }
 
     fun onButtonClick(view: View?)
@@ -62,12 +40,32 @@ class MainActivity : AppCompatActivity()
         startActivity(intent)
     }
 
-    private fun switchButton(index: Int, string: String)
+    private fun bottomNavigation(item: MenuItem): Boolean
     {
-        val buttonID = "button$index"
-        val resourceId = resources.getIdentifier(buttonID, "id", packageName)
-        val button = findViewById(resourceId) as Button
-        button.text = string
+        when (item.itemId)
+        {
+            R.id.action_numbers -> switchMode(true, MainActivity.REGULAR_NUMBERS)
+            R.id.action_t_shirt -> switchMode(false, MainActivity.T_SHIRT)
+            R.id.action_settings -> return true
+            else -> {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    private fun switchMode(shouldLastRowBeEnabled: Boolean, strings: Array<String>)
+    {
+        if (_lastRowEnabled == shouldLastRowBeEnabled)
+            return
+
+        toggleLastRow()
+
+        for ((index, value) in strings.withIndex())
+        {
+            switchButton(index, value)
+        }
     }
 
     private fun toggleLastRow()
@@ -79,5 +77,13 @@ class MainActivity : AppCompatActivity()
         button9.visibility = visibility
         button10.visibility = visibility
         button11.visibility = visibility
+    }
+
+    private fun switchButton(index: Int, string: String)
+    {
+        val buttonID = "button$index"
+        val resourceId = resources.getIdentifier(buttonID, "id", packageName)
+        val button = findViewById(resourceId) as Button
+        button.text = string
     }
 }
