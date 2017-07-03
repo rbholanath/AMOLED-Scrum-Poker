@@ -1,15 +1,17 @@
 package nl.bholanath.amoledscrumpoker
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.TextView
-import android.graphics.Color
-import android.view.View
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
+import android.graphics.Color
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.ScaleGestureDetector
-import kotlinx.android.synthetic.main.activity_chosen_number.textView
-import kotlinx.android.synthetic.main.activity_chosen_number.textView2
+import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
+import kotlinx.android.synthetic.main.activity_chosen_number.*
 
 class ChosenNumber : AppCompatActivity()
 {
@@ -23,6 +25,8 @@ class ChosenNumber : AppCompatActivity()
 
         const val TEXT_COLOR = Color.WHITE
         const val TEXT_COLOR_HIDDEN = Color.BLACK
+
+        const val FADE_DURATION = 1000L
     }
 
     lateinit var scaleGestureDetector: ScaleGestureDetector
@@ -48,7 +52,8 @@ class ChosenNumber : AppCompatActivity()
         }
     }
 
-    private fun setupPinchToZoom() {
+    private fun setupPinchToZoom()
+    {
         textView.setOnTouchListener { _, event ->
             if (textView.currentTextColor == ChosenNumber.TEXT_COLOR_HIDDEN)
             {
@@ -92,12 +97,25 @@ class ChosenNumber : AppCompatActivity()
     {
         val objectAnimator = ObjectAnimator.ofInt(textView, "textColor", ChosenNumber.TEXT_COLOR_HIDDEN, ChosenNumber.TEXT_COLOR)
         objectAnimator.setEvaluator(ArgbEvaluator())
-        objectAnimator.duration = 1000
+        objectAnimator.duration = ChosenNumber.FADE_DURATION
         objectAnimator.start()
 
-        val objectAnimator2 = ObjectAnimator.ofInt(textView2, "textColor", ChosenNumber.TEXT_COLOR, ChosenNumber.TEXT_COLOR_HIDDEN)
-        objectAnimator2.setEvaluator(ArgbEvaluator())
-        objectAnimator2.duration = 1000
-        objectAnimator2.start()
+        val fadeOut = AlphaAnimation(1f, 0f)
+        fadeOut.interpolator = AccelerateInterpolator()
+        fadeOut.duration = ChosenNumber.FADE_DURATION
+
+        fadeOut.setAnimationListener(object : AnimationListener
+        {
+            override fun onAnimationEnd(animation: Animation)
+            {
+                chevron.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation) { }
+
+            override fun onAnimationStart(animation: Animation) { }
+        })
+
+        chevron.startAnimation(fadeOut)
     }
 }
