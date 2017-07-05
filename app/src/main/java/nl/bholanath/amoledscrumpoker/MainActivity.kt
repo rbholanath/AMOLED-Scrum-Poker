@@ -1,23 +1,26 @@
 package nl.bholanath.amoledscrumpoker
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.content.Intent
-import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity()
+class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInteractionListener
 {
-    companion object
+    override fun onSelectionMade(message: CharSequence)
     {
-        const val CHOSEN_VALUE = "nl.bholanath.amoledscrumpoker.message"
-        val REGULAR_NUMBERS = arrayOf("0", "½", "1", "2", "3", "5", "8", "13", "20", "40", "100", "∞")
-        val T_SHIRT = arrayOf("XXS", "XS", "S", "M", "L", "XL", "XXL", "∞", "?")
+        val intent = Intent(this, ChosenNumber::class.java)
+
+        intent.putExtra(SelectorFragment.CHOSEN_VALUE, message)
+
+        startActivity(intent)
     }
 
-    private var _lastRowEnabled = true
+    private var _selectorShown = true
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -25,6 +28,13 @@ class MainActivity : AppCompatActivity()
         setContentView(R.layout.activity_main)
 
         bottom_navigation.setOnNavigationItemSelectedListener { bottomNavigation(it) }
+
+        if (savedInstanceState != null)
+            return
+
+        val selectorFragment = SelectorFragment()
+
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container, selectorFragment).commit()
     }
 
     fun onButtonClick(view: View?)
@@ -33,22 +43,37 @@ class MainActivity : AppCompatActivity()
         {
             return
         }
-
-        val intent = Intent(this, ChosenNumber::class.java)
-
-        val message = view.text
-        intent.putExtra(MainActivity.CHOSEN_VALUE, message)
-
-        startActivity(intent)
     }
 
     private fun bottomNavigation(item: MenuItem): Boolean
     {
         when (item.itemId)
         {
-            R.id.action_numbers -> switchMode(true, MainActivity.REGULAR_NUMBERS)
-            R.id.action_t_shirt -> switchMode(false, MainActivity.T_SHIRT)
-            R.id.action_settings -> return true
+            R.id.action_numbers ->
+            {
+                if (!_selectorShown)
+                {
+                    switchFragments(SelectorFragment())
+                }
+                else
+                {
+                    val selectorFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as SelectorFragment;
+                    selectorFragment.switchMode(true, SelectorFragment.REGULAR_NUMBERS)
+                }
+            }
+            R.id.action_t_shirt ->
+            {
+                var selectorFragment =  if (_selectorShown) supportFragmentManager.findFragmentById(R.id.fragment_container) as SelectorFragment else SelectorFragment()
+
+                selectorFragment.switchMode(false, SelectorFragment.T_SHIRT)
+            }
+            R.id.action_settings ->
+            {
+                if (_selectorShown)
+                {
+                    switchFragments(SelectorFragment())
+                }
+            }
             else -> {
                 return false
             }
@@ -57,37 +82,13 @@ class MainActivity : AppCompatActivity()
         return true
     }
 
-    private fun switchMode(shouldLastRowBeEnabled: Boolean, strings: Array<String>)
+    private fun switchFragments(fragment: Fragment)
     {
-        if (_lastRowEnabled == shouldLastRowBeEnabled)
-        {
-            return
-        }
+        val transaction = supportFragmentManager.beginTransaction()
 
-        toggleLastRow()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
 
-        for ((index, value) in strings.withIndex())
-        {
-            switchButton(index, value)
-        }
-    }
-
-    private fun toggleLastRow()
-    {
-        _lastRowEnabled = !_lastRowEnabled
-
-        val visibility = if (_lastRowEnabled) View.VISIBLE else View.INVISIBLE
-
-        button9.visibility = visibility
-        button10.visibility = visibility
-        button11.visibility = visibility
-    }
-
-    private fun switchButton(index: Int, string: String)
-    {
-        val buttonID = "button$index"
-        val resourceId = resources.getIdentifier(buttonID, "id", packageName)
-        val button = findViewById(resourceId) as Button
-        button.text = string
+        transaction.commit()
     }
 }

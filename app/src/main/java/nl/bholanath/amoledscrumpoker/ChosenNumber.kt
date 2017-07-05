@@ -36,7 +36,7 @@ class ChosenNumber : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chosen_number)
 
-        textView.text = intent.getStringExtra(MainActivity.CHOSEN_VALUE)
+        textView.text = intent.getStringExtra(SelectorFragment.CHOSEN_VALUE)
 
         textView.textSize = ChosenNumber.FONT_SIZE_STANDARD
 
