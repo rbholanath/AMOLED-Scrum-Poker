@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import kotlinx.android.synthetic.main.fragment_selector.*
 
-class SelectorFragment : Fragment()
+class SelectorFragment : Fragment(), View.OnClickListener
 {
     var mCallback: OnSelectorActivityInteractionListener? = null
 
@@ -39,6 +39,12 @@ class SelectorFragment : Fragment()
         return inflater.inflate(R.layout.fragment_selector, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?)
+    {
+        super.onActivityCreated(savedInstanceState)
+        setOnClickListeners()
+    }
+
     override fun onAttach(activity: Activity)
     {
         super.onAttach(activity)
@@ -58,7 +64,7 @@ class SelectorFragment : Fragment()
         super.onDetach()
     }
 
-    fun onButtonClick(view: View?)
+    override fun onClick(view: View)
     {
         if (view !is Button)
         {
@@ -100,5 +106,15 @@ class SelectorFragment : Fragment()
         val resourceId = resources.getIdentifier(buttonID, "id", "nl.bholanath.amoledscrumpoker")
         val button = getView()!!.findViewById(resourceId) as Button
         button.text = string
+    }
+
+    private fun setOnClickListeners()
+    {
+        val buttons = fragment_selector.touchables
+
+        for (button in buttons)
+        {
+            button.setOnClickListener(this)
+        }
     }
 }

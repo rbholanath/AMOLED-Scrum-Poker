@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:id="@+id/fragment_selector"
@@ -28,7 +28,6 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:onClick="onButtonClick"
             android:text="0"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
@@ -42,7 +41,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:onClick="onButtonClick"
             android:text="½"/>
 
         <Button
@@ -54,7 +52,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:onClick="onButtonClick"
             android:text="1"/>
 
     </LinearLayout>
@@ -82,7 +79,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:onClick="onButtonClick"
             android:text="2"/>
 
         <Button
@@ -94,7 +90,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:onClick="onButtonClick"
             android:text="3"/>
 
         <Button
@@ -106,7 +101,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:onClick="onButtonClick"
             android:text="5"/>
     </LinearLayout>
 
@@ -134,7 +128,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:onClick="onButtonClick"
             android:text="8"/>
 
         <Button
@@ -146,7 +139,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:onClick="onButtonClick"
             android:text="13"/>
 
         <Button
@@ -158,7 +150,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:onClick="onButtonClick"
             android:text="20"/>
     </LinearLayout>
 
@@ -183,7 +174,6 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:onClick="onButtonClick"
             android:text="40"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
@@ -195,7 +185,6 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:onClick="onButtonClick"
             android:text="100"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
@@ -207,9 +196,8 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:onClick="onButtonClick"
             android:text="∞"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
     </LinearLayout>
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>
