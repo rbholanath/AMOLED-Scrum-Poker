@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInteractionListener
@@ -37,14 +35,6 @@ class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInt
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, selectorFragment).commit()
     }
 
-    fun onButtonClick(view: View?)
-    {
-        if (view !is Button)
-        {
-            return
-        }
-    }
-
     private fun bottomNavigation(item: MenuItem): Boolean
     {
         when (item.itemId)
@@ -57,13 +47,13 @@ class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInt
                 }
                 else
                 {
-                    val selectorFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as SelectorFragment;
+                    val selectorFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as SelectorFragment
                     selectorFragment.switchMode(true, SelectorFragment.REGULAR_NUMBERS)
                 }
             }
             R.id.action_t_shirt ->
             {
-                var selectorFragment =  if (_selectorShown) supportFragmentManager.findFragmentById(R.id.fragment_container) as SelectorFragment else SelectorFragment()
+                val selectorFragment =  if (_selectorShown) supportFragmentManager.findFragmentById(R.id.fragment_container) as SelectorFragment else SelectorFragment()
 
                 selectorFragment.switchMode(false, SelectorFragment.T_SHIRT)
             }

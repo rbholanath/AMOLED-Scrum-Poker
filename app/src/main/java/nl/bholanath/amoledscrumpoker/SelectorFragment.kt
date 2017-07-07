@@ -1,6 +1,7 @@
 package nl.bholanath.amoledscrumpoker
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -45,17 +46,22 @@ class SelectorFragment : Fragment(), View.OnClickListener
         setOnClickListeners()
     }
 
-    override fun onAttach(activity: Activity)
+    override fun onAttach(context: Context)
     {
-        super.onAttach(activity)
+        super.onAttach(context)
+
+        if (context !is Activity)
+        {
+            return
+        }
 
         try
         {
-            mCallback = activity as OnSelectorActivityInteractionListener
+            mCallback = context as OnSelectorActivityInteractionListener
         }
         catch (e: ClassCastException)
         {
-            throw ClassCastException(activity.toString() + " must implement OnSelectorActivityInteractionListener.")
+            throw ClassCastException(context.toString() + " must implement OnSelectorActivityInteractionListener.")
         }
     }
 
