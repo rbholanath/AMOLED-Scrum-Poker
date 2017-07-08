@@ -1,20 +1,19 @@
 package nl.bholanath.amoledscrumpoker
 
 import android.app.Activity
+import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import kotlinx.android.synthetic.main.fragment_selector.*
 
-class SelectorFragment : Fragment(), View.OnClickListener
+open class SelectorFragment : Fragment(), View.OnClickListener
 {
     var mCallback: OnSelectorActivityInteractionListener? = null
 
-    // Container Activity must implement this interface
     interface OnSelectorActivityInteractionListener
     {
         fun onSelectionMade(message: CharSequence)
@@ -23,11 +22,7 @@ class SelectorFragment : Fragment(), View.OnClickListener
     companion object
     {
         const val CHOSEN_VALUE = "nl.bholanath.amoledscrumpoker.message"
-        val REGULAR_NUMBERS = arrayOf("0", "½", "1", "2", "3", "5", "8", "13", "20", "40", "100", "∞")
-        val T_SHIRT = arrayOf("XXS", "XS", "S", "M", "L", "XL", "XXL", "∞", "?")
     }
-
-    private var _lastRowEnabled = true
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -36,7 +31,6 @@ class SelectorFragment : Fragment(), View.OnClickListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_selector, container, false)
     }
 
@@ -78,40 +72,6 @@ class SelectorFragment : Fragment(), View.OnClickListener
         }
 
         mCallback!!.onSelectionMade(view.text)
-    }
-
-    fun switchMode(shouldLastRowBeEnabled: Boolean, strings: Array<String>)
-    {
-        if (_lastRowEnabled == shouldLastRowBeEnabled)
-        {
-            return
-        }
-
-        toggleLastRow()
-
-        for ((index, value) in strings.withIndex())
-        {
-            switchButton(index, value)
-        }
-    }
-
-    private fun toggleLastRow()
-    {
-        _lastRowEnabled = !_lastRowEnabled
-
-        val visibility = if (_lastRowEnabled) View.VISIBLE else View.INVISIBLE
-
-        button9.visibility = visibility
-        button10.visibility = visibility
-        button11.visibility = visibility
-    }
-
-    private fun switchButton(index: Int, string: String)
-    {
-        val buttonID = "button$index"
-        val resourceId = resources.getIdentifier(buttonID, "id", "nl.bholanath.amoledscrumpoker")
-        val button = getView()!!.findViewById(resourceId) as Button
-        button.text = string
     }
 
     private fun setOnClickListeners()

@@ -1,13 +1,13 @@
 package nl.bholanath.amoledscrumpoker
 
+import android.app.Activity
+import android.app.Fragment
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInteractionListener
+class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionListener
 {
     override fun onSelectionMade(message: CharSequence)
     {
@@ -17,8 +17,6 @@ class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInt
 
         startActivity(intent)
     }
-
-    private var _selectorShown = true
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -30,9 +28,9 @@ class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInt
         if (savedInstanceState != null)
             return
 
-        val selectorFragment = SelectorFragment()
+        val numberSelectorFragment = NumberSelectorFragment()
 
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, selectorFragment).commit()
+        fragmentManager.beginTransaction().add(R.id.fragment_container, numberSelectorFragment).commit()
     }
 
     private fun bottomNavigation(item: MenuItem): Boolean
@@ -41,28 +39,15 @@ class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInt
         {
             R.id.action_numbers ->
             {
-                if (!_selectorShown)
-                {
-                    switchFragments(SelectorFragment())
-                }
-                else
-                {
-                    val selectorFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as SelectorFragment
-                    selectorFragment.switchMode(true, SelectorFragment.REGULAR_NUMBERS)
-                }
+                switchFragments(NumberSelectorFragment())
             }
             R.id.action_t_shirt ->
             {
-                val selectorFragment =  if (_selectorShown) supportFragmentManager.findFragmentById(R.id.fragment_container) as SelectorFragment else SelectorFragment()
-
-                selectorFragment.switchMode(false, SelectorFragment.T_SHIRT)
+                switchFragments(TshirtSelectorFragment())
             }
             R.id.action_settings ->
             {
-                if (_selectorShown)
-                {
-                    switchFragments(SelectorFragment())
-                }
+                switchFragments(NumberSelectorFragment())
             }
             else -> {
                 return false
@@ -74,7 +59,7 @@ class MainActivity : AppCompatActivity(), SelectorFragment.OnSelectorActivityInt
 
     private fun switchFragments(fragment: Fragment)
     {
-        val transaction = supportFragmentManager.beginTransaction()
+        val transaction = fragmentManager.beginTransaction()
 
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)

@@ -2,9 +2,9 @@ package nl.bholanath.amoledscrumpoker
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -14,7 +14,7 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import kotlinx.android.synthetic.main.activity_chosen_number.*
 
-class ChosenNumber : AppCompatActivity(), GestureDetector.OnGestureListener
+class ChosenNumber : Activity(), GestureDetector.OnGestureListener
 {
     companion object
     {
