@@ -9,6 +9,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionListener
 {
+    companion object
+    {
+        const val DEFAULT_HIDE = true
+        const val DEFAULT_SWIPE = true
+        const val DEFAULT_FONT_SMALL = false
+        const val SHARED_PREFERENCE_KEY = "shared_preferences"
+    }
+
     override fun onSelectionMade(message: CharSequence)
     {
         val intent = Intent(this, ChosenNumber::class.java)
@@ -47,7 +55,7 @@ class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionL
             }
             R.id.action_settings ->
             {
-                switchFragments(NumberSelectorFragment())
+                switchFragments(SettingsFragment())
             }
             else -> {
                 return false

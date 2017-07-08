@@ -3,6 +3,7 @@ package nl.bholanath.amoledscrumpoker
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.GestureDetector
@@ -19,7 +20,7 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
     companion object
     {
         const val FONT_SIZE_MINIMUM = 50f
-        const val FONT_SIZE_STANDARD = 150f
+        const val FONT_SIZE_STANDARD_SMALL = 150f
         const val FONT_SIZE_SMALL = 235f
         const val FONT_SIZE_MEDIUM = 350f
         const val FONT_SIZE_LARGE = 500f
@@ -37,8 +38,6 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
     private var _mDetector: GestureDetector? = null
     lateinit var _scaleGestureDetector: ScaleGestureDetector
 
-    private val _swipeEnabled = true
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -48,9 +47,7 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
 
         textView.text = intent.getStringExtra(SelectorFragment.CHOSEN_VALUE)
 
-        textView.textSize = ChosenNumber.FONT_SIZE_STANDARD
-
-        setupPinchToZoom()
+        setUpView()
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -65,15 +62,18 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
     override fun onTouchEvent(event: MotionEvent): Boolean
     {
         _mDetector!!.onTouchEvent(event)
-        // Be sure to call the superclass implementation
+
         return super.onTouchEvent(event)
     }
 
     override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean
     {
-        // If swipe is enabled, the number is not yet shown, the swipe up is straight-ish, large enough, and fast enough.
-        if (_swipeEnabled && textView.currentTextColor == ChosenNumber.TEXT_COLOR_HIDDEN && Math.abs(event1.x - event2.x) < SWIPE_MAX_OFF_PATH && event1.y - event2.y > SWIPE_MIN_DISTANCE
-                && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+        val preferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
+
+        // If swipe is enabled, hide is enabled, the number is not yet shown, and the swipe up is straight-ish, large enough, and fast enough.
+        if (preferences.getBoolean(getString(R.string.preference_swipe), MainActivity.DEFAULT_SWIPE)
+                && preferences.getBoolean(getString(R.string.preference_hide), MainActivity.DEFAULT_HIDE) && textView.currentTextColor == ChosenNumber.TEXT_COLOR_HIDDEN
+                && Math.abs(event1.x - event2.x) < SWIPE_MAX_OFF_PATH && event1.y - event2.y > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
         {
             showChosenValue()
         }
@@ -81,12 +81,40 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
         return true
     }
 
+    private fun setUpView()
+    {
+        val preferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
+
+        if (preferences.getBoolean(getString(R.string.preference_font_size_small), MainActivity.DEFAULT_FONT_SMALL))
+        {
+            textView.textSize = ChosenNumber.FONT_SIZE_STANDARD_SMALL
+        }
+        else
+        {
+            when (textView.text.length)
+            {
+                1 -> textView.textSize = ChosenNumber.FONT_SIZE_LARGE
+                2 -> textView.textSize = ChosenNumber.FONT_SIZE_MEDIUM
+                3 -> textView.textSize = ChosenNumber.FONT_SIZE_SMALL
+                else -> ChosenNumber.FONT_SIZE_SMALL
+            }
+        }
+
+        if (!preferences.getBoolean(getString(R.string.preference_hide), MainActivity.DEFAULT_HIDE))
+        {
+            textView.setTextColor(ChosenNumber.TEXT_COLOR)
+            chevron.visibility = View.GONE
+        }
+
+        setupPinchToZoom()
+    }
+
     private fun showChosenValue()
     {
-        val objectAnimator = ObjectAnimator.ofInt(textView, "textColor", ChosenNumber.TEXT_COLOR_HIDDEN, ChosenNumber.TEXT_COLOR)
-        objectAnimator.setEvaluator(ArgbEvaluator())
-        objectAnimator.duration = ChosenNumber.FADE_DURATION
-        objectAnimator.start()
+        val selectionAnimator = ObjectAnimator.ofInt(textView, "textColor", ChosenNumber.TEXT_COLOR_HIDDEN, ChosenNumber.TEXT_COLOR)
+        selectionAnimator.setEvaluator(ArgbEvaluator())
+        selectionAnimator.duration = ChosenNumber.FADE_DURATION
+        selectionAnimator.start()
 
         val fadeOut = AlphaAnimation(1f, 0f)
         fadeOut.interpolator = AccelerateInterpolator()
@@ -109,20 +137,20 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
 
     private fun setupPinchToZoom()
     {
-        if (!_swipeEnabled)
-        {
-            textView.setOnTouchListener { _, event ->
-                if (textView.currentTextColor == ChosenNumber.TEXT_COLOR_HIDDEN)
-                {
-                    showChosenValue()
-                }
-                else if (textView.currentTextColor == ChosenNumber.TEXT_COLOR)
-                {
-                    _scaleGestureDetector.onTouchEvent(event)
-                }
-
-                true
+        textView.setOnTouchListener { _, event ->
+            // If the value is not yet shown, swipe is disabled, and hide is enabled.
+            if (textView.currentTextColor == ChosenNumber.TEXT_COLOR_HIDDEN
+                    && !getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_swipe), MainActivity.DEFAULT_SWIPE)
+                    && getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_hide), MainActivity.DEFAULT_HIDE))
+            {
+                showChosenValue()
             }
+            else if (textView.currentTextColor == ChosenNumber.TEXT_COLOR)
+            {
+                _scaleGestureDetector.onTouchEvent(event)
+            }
+
+            true
         }
 
         var scaleFactor = 1f
