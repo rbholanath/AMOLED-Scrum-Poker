@@ -20,7 +20,9 @@ class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionL
 
     override fun onSelectionMade(message: CharSequence)
     {
-        val newActivity = if (getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_swipe), MainActivity.DEFAULT_SWIPE))
+        val preferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
+
+        val newActivity = if (preferences.getBoolean(getString(R.string.preference_swipe), MainActivity.DEFAULT_SWIPE) && preferences.getBoolean(getString(R.string.preference_hide), MainActivity.DEFAULT_HIDE))
                               SwipeChosenNumber::class.java
                           else
                               ChosenNumber::class.java
