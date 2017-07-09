@@ -65,6 +65,11 @@ open class ChosenNumber : Activity()
                 {
                     override fun onScale(detector: ScaleGestureDetector): Boolean
                     {
+                        if (!getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_zoom), MainActivity.DEFAULT_ZOOM))
+                        {
+                            return true
+                        }
+
                         val maximumFontSize = when(textView.text.length)
                         {
                             1 -> ChosenNumber.FONT_SIZE_LARGE

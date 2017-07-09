@@ -3,4 +3,5 @@
     <string name="preference_hide">Preference Hide</string>
     <string name="preference_swipe">Preference Swipe</string>
     <string name="preference_font_size_small">Preference Font Size Small</string>
+    <string name="preference_zoom">Preference Zoom</string>
 </resources>

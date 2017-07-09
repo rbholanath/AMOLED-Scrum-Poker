@@ -28,6 +28,7 @@ class SettingsFragment : Fragment()
         initializePreferenceButtons(getString(R.string.preference_hide), buttonHideYes, buttonHideNo, MainActivity.DEFAULT_HIDE)
         initializePreferenceButtons(getString(R.string.preference_swipe), buttonRevealSwipe, buttonRevealTap, MainActivity.DEFAULT_SWIPE)
         initializePreferenceButtons(getString(R.string.preference_font_size_small), buttonFontSmall, buttonFontLarge, MainActivity.DEFAULT_FONT_SMALL)
+        initializePreferenceButtons(getString(R.string.preference_zoom), buttonZoomOn, buttonZoomOff, MainActivity.DEFAULT_ZOOM)
     }
 
     private fun initializePreferenceButtons(preference: String, buttonYes: Button, buttonNo: Button, default: Boolean)

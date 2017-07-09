@@ -14,7 +14,8 @@ class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionL
     {
         const val DEFAULT_HIDE = true
         const val DEFAULT_SWIPE = true
-        const val DEFAULT_FONT_SMALL = false
+        const val DEFAULT_FONT_SMALL = true
+        const val DEFAULT_ZOOM = true
         const val SHARED_PREFERENCE_KEY = "shared_preferences"
     }
 
