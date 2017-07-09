@@ -25,7 +25,7 @@ class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionL
         val newActivity = if (preferences.getBoolean(getString(R.string.preference_swipe), MainActivity.DEFAULT_SWIPE) && preferences.getBoolean(getString(R.string.preference_hide), MainActivity.DEFAULT_HIDE))
                               SwipeChosenNumber::class.java
                           else
-                              ChosenNumber::class.java
+                              TapChosenNumber::class.java
 
         val intent = Intent(this, newActivity)
 

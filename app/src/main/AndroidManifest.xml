@@ -16,9 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ChosenNumber">
+        <activity android:name=".TapChosenNumber">
         </activity>
         <activity android:name=".SwipeChosenNumber">
+        </activity>
+        <activity android:name=".ChosenNumber">
         </activity>
     </application>
 

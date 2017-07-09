@@ -1,33 +1,23 @@
 package nl.bholanath.amoledscrumpoker
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_swipe_chosen_number.*
 
-class SwipeChosenNumber : Activity(), GestureDetector.OnGestureListener
+class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
 {
     companion object
     {
-        const val FONT_SIZE_MINIMUM = 50f
-        const val FONT_SIZE_STANDARD_SMALL = 150f
-        const val FONT_SIZE_SMALL = 235f
-        const val FONT_SIZE_MEDIUM = 350f
-        const val FONT_SIZE_LARGE = 500f
-
         const val SWIPE_MIN_DISTANCE = 500
         const val SWIPE_MAX_OFF_PATH = 250
         const val SWIPE_THRESHOLD_VELOCITY = 200
     }
 
     private var _mDetector: GestureDetector? = null
-    lateinit var _scaleGestureDetector: ScaleGestureDetector
 
     private val _swipeEnabled = true
 
@@ -41,15 +31,6 @@ class SwipeChosenNumber : Activity(), GestureDetector.OnGestureListener
         swipeSelection.text = intent.getStringExtra(SelectorFragment.CHOSEN_VALUE)
 
         setUpView()
-    }
-
-    @Suppress("UNUSED_PARAMETER")
-    fun arrowTapped(view: View?)
-    {
-        if (swipeSelection.visibility == View.GONE)
-        {
-            showChosenValue()
-        }
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean
@@ -78,8 +59,13 @@ class SwipeChosenNumber : Activity(), GestureDetector.OnGestureListener
         return true
     }
 
-    private fun showChosenValue()
+    override fun showChosenValue()
     {
+        if (swipeSelection.visibility == View.VISIBLE)
+        {
+            return
+        }
+
         val slideUp = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up)
         val slideUpChevron = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up_chevron)
 
@@ -102,54 +88,9 @@ class SwipeChosenNumber : Activity(), GestureDetector.OnGestureListener
 
     private fun setUpView()
     {
-        val preferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
-
-        if (preferences.getBoolean(getString(R.string.preference_font_size_small), MainActivity.DEFAULT_FONT_SMALL))
-        {
-            swipeSelection.textSize = SwipeChosenNumber.FONT_SIZE_STANDARD_SMALL
-        }
-        else
-        {
-            when (swipeSelection.text.length)
-            {
-                1 -> swipeSelection.textSize = SwipeChosenNumber.FONT_SIZE_LARGE
-                2 -> swipeSelection.textSize = SwipeChosenNumber.FONT_SIZE_MEDIUM
-                3 -> swipeSelection.textSize = SwipeChosenNumber.FONT_SIZE_SMALL
-                else -> SwipeChosenNumber.FONT_SIZE_SMALL
-            }
-        }
+        super.setUpView(swipeSelection)
 
         swipeSelection.visibility = View.GONE
-
-        setupPinchToZoom()
-    }
-
-    private fun setupPinchToZoom()
-    {
-        var scaleFactor = 1f
-
-        _scaleGestureDetector = ScaleGestureDetector(this,
-                object : ScaleGestureDetector.SimpleOnScaleGestureListener()
-                {
-                    override fun onScale(detector: ScaleGestureDetector): Boolean
-                    {
-                        val maximumFontSize = when(swipeSelection.text.length)
-                        {
-                            1 -> SwipeChosenNumber.FONT_SIZE_LARGE
-                            2 -> SwipeChosenNumber.FONT_SIZE_MEDIUM
-                            3 -> SwipeChosenNumber.FONT_SIZE_SMALL
-                            else -> SwipeChosenNumber.FONT_SIZE_SMALL
-                        }
-
-                        scaleFactor *= detector.scaleFactor
-
-                        val textSizeInSp = swipeSelection.textSize / resources.displayMetrics.scaledDensity
-
-                        swipeSelection.textSize = Math.max(SwipeChosenNumber.FONT_SIZE_MINIMUM, Math.min(maximumFontSize, textSizeInSp * scaleFactor))
-
-                        return true
-                    }
-                })
     }
 
     // Touch events we don't handle.
