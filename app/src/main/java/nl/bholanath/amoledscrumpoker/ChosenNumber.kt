@@ -16,6 +16,9 @@ open class ChosenNumber : Activity()
         const val FONT_SIZE_SMALL = 235f
         const val FONT_SIZE_MEDIUM = 350f
         const val FONT_SIZE_LARGE = 500f
+
+        const val ANIMATION_SPEED_NORMAL = 1000L
+        const val ANIMATION_SPEED_FAST = 500L
     }
 
     lateinit var _scaleGestureDetector: ScaleGestureDetector

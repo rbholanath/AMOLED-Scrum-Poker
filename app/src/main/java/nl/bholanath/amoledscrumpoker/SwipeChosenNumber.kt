@@ -1,5 +1,6 @@
 package nl.bholanath.amoledscrumpoker
 
+import android.content.Context
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -64,8 +65,17 @@ class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
             return
         }
 
+        val animationSpeed = if (getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_animation_speed), MainActivity.DEFAULT_ANIMATION_SPEED_NORMAL))
+            ChosenNumber.ANIMATION_SPEED_NORMAL
+        else
+            ChosenNumber.ANIMATION_SPEED_FAST
+
         val slideUp = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up)
+        slideUp.duration = animationSpeed
+
         val slideUpChevron = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up_chevron)
+        slideUpChevron.duration = animationSpeed
+
 
         swipeSelection.visibility = View.VISIBLE
         swipeSelection.startAnimation(slideUp)

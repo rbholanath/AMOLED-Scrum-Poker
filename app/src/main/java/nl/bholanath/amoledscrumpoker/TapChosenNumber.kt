@@ -65,14 +65,19 @@ class TapChosenNumber : ChosenNumber()
             return
         }
 
+        val animationSpeed = if (getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_animation_speed), MainActivity.DEFAULT_ANIMATION_SPEED_NORMAL))
+                                 ChosenNumber.ANIMATION_SPEED_NORMAL
+                             else
+                                 ChosenNumber.ANIMATION_SPEED_FAST
+
         val selectionAnimator = ObjectAnimator.ofInt(textView, "textColor", TapChosenNumber.TEXT_COLOR_HIDDEN, TapChosenNumber.TEXT_COLOR)
         selectionAnimator.setEvaluator(ArgbEvaluator())
-        selectionAnimator.duration = TapChosenNumber.FADE_DURATION
+        selectionAnimator.duration = animationSpeed
         selectionAnimator.start()
 
         val fadeOut = AlphaAnimation(1f, 0f)
         fadeOut.interpolator = AccelerateInterpolator()
-        fadeOut.duration = TapChosenNumber.FADE_DURATION
+        fadeOut.duration = animationSpeed
 
         fadeOut.setAnimationListener(object : Animation.AnimationListener
         {
