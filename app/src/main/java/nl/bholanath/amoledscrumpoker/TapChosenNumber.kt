@@ -2,7 +2,6 @@ package nl.bholanath.amoledscrumpoker
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -10,6 +9,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import kotlinx.android.synthetic.main.activity_tap_chosen_number.*
+import nl.bholanath.amoledscrumpoker.helpers.AppPreferences
 
 class TapChosenNumber : ChosenNumber()
 {
@@ -17,8 +17,6 @@ class TapChosenNumber : ChosenNumber()
     {
         const val TEXT_COLOR = Color.WHITE
         const val TEXT_COLOR_HIDDEN = Color.BLACK
-
-        const val FADE_DURATION = 1000L
     }
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -35,10 +33,8 @@ class TapChosenNumber : ChosenNumber()
     {
         super.setUpView(textView)
 
-        val preferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
-
         // If the hide preference is off, show the number immediately.
-        if (!preferences.getBoolean(getString(R.string.preference_hide), MainActivity.DEFAULT_HIDE))
+        if (!AppPreferences.getPreferenceHide(this))
         {
             textView.setTextColor(TapChosenNumber.TEXT_COLOR)
             chevron.visibility = View.GONE
@@ -65,7 +61,7 @@ class TapChosenNumber : ChosenNumber()
             return
         }
 
-        val animationSpeed = if (getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_animation_speed), MainActivity.DEFAULT_ANIMATION_SPEED_NORMAL))
+        val animationSpeed = if (AppPreferences.getPreferenceAnimationSpeedNormal(this))
                                  ChosenNumber.ANIMATION_SPEED_NORMAL
                              else
                                  ChosenNumber.ANIMATION_SPEED_FAST

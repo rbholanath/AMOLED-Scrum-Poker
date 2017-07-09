@@ -1,11 +1,11 @@
 package nl.bholanath.amoledscrumpoker
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.TextView
+import nl.bholanath.amoledscrumpoker.helpers.AppPreferences
 
 open class ChosenNumber : Activity()
 {
@@ -37,9 +37,7 @@ open class ChosenNumber : Activity()
 
     protected fun setUpView(textView: TextView)
     {
-        val preferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
-
-        if (preferences.getBoolean(getString(R.string.preference_font_size_small), MainActivity.DEFAULT_FONT_SMALL))
+        if (AppPreferences.getPreferenceFontSizeSmall(this))
         {
             textView.textSize = ChosenNumber.FONT_SIZE_STANDARD_SMALL
         }
@@ -68,7 +66,7 @@ open class ChosenNumber : Activity()
                 {
                     override fun onScale(detector: ScaleGestureDetector): Boolean
                     {
-                        if (!getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_zoom), MainActivity.DEFAULT_ZOOM))
+                        if (!AppPreferences.getPreferenceZoom(applicationContext))
                         {
                             return true
                         }

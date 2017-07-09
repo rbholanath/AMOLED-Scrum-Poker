@@ -1,6 +1,5 @@
 package nl.bholanath.amoledscrumpoker
 
-import android.content.Context
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -8,6 +7,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_swipe_chosen_number.*
+import nl.bholanath.amoledscrumpoker.helpers.AppPreferences
 
 class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
 {
@@ -65,7 +65,7 @@ class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
             return
         }
 
-        val animationSpeed = if (getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_animation_speed), MainActivity.DEFAULT_ANIMATION_SPEED_NORMAL))
+        val animationSpeed = if (AppPreferences.getPreferenceAnimationSpeedNormal(this))
             ChosenNumber.ANIMATION_SPEED_NORMAL
         else
             ChosenNumber.ANIMATION_SPEED_FAST
@@ -75,7 +75,6 @@ class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
 
         val slideUpChevron = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up_chevron)
         slideUpChevron.duration = animationSpeed
-
 
         swipeSelection.visibility = View.VISIBLE
         swipeSelection.startAnimation(slideUp)
