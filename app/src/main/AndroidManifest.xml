@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".ChosenNumber">
         </activity>
+        <activity android:name=".SwipeChosenNumber">
+        </activity>
     </application>
 
 </manifest>

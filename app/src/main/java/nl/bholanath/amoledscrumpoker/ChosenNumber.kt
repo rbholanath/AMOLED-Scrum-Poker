@@ -6,8 +6,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.view.GestureDetector
-import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.animation.AccelerateInterpolator
@@ -15,7 +13,7 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import kotlinx.android.synthetic.main.activity_chosen_number.*
 
-class ChosenNumber : Activity(), GestureDetector.OnGestureListener
+class ChosenNumber : Activity()
 {
     companion object
     {
@@ -29,21 +27,14 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
         const val TEXT_COLOR_HIDDEN = Color.BLACK
 
         const val FADE_DURATION = 1000L
-
-        const val SWIPE_MIN_DISTANCE = 500
-        const val SWIPE_MAX_OFF_PATH = 250
-        const val SWIPE_THRESHOLD_VELOCITY = 200
     }
 
-    private var _mDetector: GestureDetector? = null
     lateinit var _scaleGestureDetector: ScaleGestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chosen_number)
-
-        _mDetector = GestureDetector(this, this)
 
         textView.text = intent.getStringExtra(SelectorFragment.CHOSEN_VALUE)
 
@@ -57,28 +48,6 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
         {
             showChosenValue()
         }
-    }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean
-    {
-        _mDetector!!.onTouchEvent(event)
-
-        return super.onTouchEvent(event)
-    }
-
-    override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean
-    {
-        val preferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
-
-        // If swipe is enabled, hide is enabled, the number is not yet shown, and the swipe up is straight-ish, large enough, and fast enough.
-        if (preferences.getBoolean(getString(R.string.preference_swipe), MainActivity.DEFAULT_SWIPE)
-                && preferences.getBoolean(getString(R.string.preference_hide), MainActivity.DEFAULT_HIDE) && textView.currentTextColor == ChosenNumber.TEXT_COLOR_HIDDEN
-                && Math.abs(event1.x - event2.x) < SWIPE_MAX_OFF_PATH && event1.y - event2.y > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
-        {
-            showChosenValue()
-        }
-
-        return true
     }
 
     private fun setUpView()
@@ -138,10 +107,7 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
     private fun setupPinchToZoom()
     {
         textView.setOnTouchListener { _, event ->
-            // If the value is not yet shown, swipe is disabled, and hide is enabled.
-            if (textView.currentTextColor == ChosenNumber.TEXT_COLOR_HIDDEN
-                    && !getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_swipe), MainActivity.DEFAULT_SWIPE)
-                    && getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_hide), MainActivity.DEFAULT_HIDE))
+            if (textView.currentTextColor == ChosenNumber.TEXT_COLOR_HIDDEN)
             {
                 showChosenValue()
             }
@@ -177,25 +143,5 @@ class ChosenNumber : Activity(), GestureDetector.OnGestureListener
                         return true
                     }
                 })
-    }
-
-    // Touch events we don't handle.
-    override fun onDown(event: MotionEvent): Boolean
-    {
-        return true
-    }
-
-    override fun onLongPress(event: MotionEvent) { }
-
-    override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean
-    {
-        return true
-    }
-
-    override fun onShowPress(event: MotionEvent) { }
-
-    override fun onSingleTapUp(event: MotionEvent): Boolean
-    {
-        return true
     }
 }

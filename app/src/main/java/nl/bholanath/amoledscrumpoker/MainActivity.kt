@@ -2,6 +2,7 @@ package nl.bholanath.amoledscrumpoker
 
 import android.app.Activity
 import android.app.Fragment
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -19,7 +20,12 @@ class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionL
 
     override fun onSelectionMade(message: CharSequence)
     {
-        val intent = Intent(this, ChosenNumber::class.java)
+        val newActivity = if (getSharedPreferences(MainActivity.SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE).getBoolean(getString(R.string.preference_swipe), MainActivity.DEFAULT_SWIPE))
+                              SwipeChosenNumber::class.java
+                          else
+                              ChosenNumber::class.java
+
+        val intent = Intent(this, newActivity)
 
         intent.putExtra(SelectorFragment.CHOSEN_VALUE, message)
 
