@@ -19,8 +19,6 @@ class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
 
     private var _mDetector: GestureDetector? = null
 
-    private val _swipeEnabled = true
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -49,8 +47,8 @@ class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
 
     override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean
     {
-        // If swipe is enabled, the number is not yet shown, the swipe up is straight-ish, large enough, and fast enough.
-        if (_swipeEnabled && swipeSelection.visibility == View.GONE && Math.abs(event1.x - event2.x) < SWIPE_MAX_OFF_PATH && event1.y - event2.y > SWIPE_MIN_DISTANCE
+        // If the number is not yet shown, the swipe up is straight-ish, large enough, and fast enough.
+        if (swipeSelection.visibility == View.GONE && Math.abs(event1.x - event2.x) < SWIPE_MAX_OFF_PATH && event1.y - event2.y > SWIPE_MIN_DISTANCE
                 && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
         {
             showChosenValue()
