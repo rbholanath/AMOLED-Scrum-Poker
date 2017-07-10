@@ -1,10 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_numbers"
           android:title="Numbers"
-          android:icon="@drawable/ic_more_items"/>
+          android:icon="@drawable/ic_navigation_numbers"/>
     <item android:id="@+id/action_t_shirt"
           android:title="T-shirt"
-          android:icon="@drawable/ic_text_dot"/>
+          android:icon="@drawable/ic_navigation_tshirt"/>
     <item android:id="@+id/action_settings"
           android:title="Settings"
           android:icon="@drawable/ic_settings" />
