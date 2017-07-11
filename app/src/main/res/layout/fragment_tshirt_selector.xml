@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:text="XXS"
+            android:text="@string/t_shirt_xxs"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
 
@@ -41,7 +41,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="XS"/>
+            android:text="@string/t_shirt_xs"/>
 
         <Button
             android:id="@+id/button2"
@@ -52,7 +52,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="S"/>
+            android:text="@string/t_shirt_s"/>
 
     </LinearLayout>
 
@@ -79,7 +79,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="M"/>
+            android:text="@string/t_shirt_m"/>
 
         <Button
             android:id="@+id/button4"
@@ -90,7 +90,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="L"/>
+            android:text="@string/t_shirt_l"/>
 
         <Button
             android:id="@+id/button5"
@@ -101,7 +101,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="XL"/>
+            android:text="@string/t_shirt_xl"/>
     </LinearLayout>
 
     <LinearLayout
@@ -128,7 +128,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="XXL"/>
+            android:text="@string/t_shirt_xxl"/>
 
         <Button
             android:id="@+id/button7"
@@ -139,7 +139,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="∞"/>
+            android:text="@string/infinity"/>
 
         <Button
             android:id="@+id/button8"
@@ -150,6 +150,6 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="\?"/>
+            android:text="@string/question_mark"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

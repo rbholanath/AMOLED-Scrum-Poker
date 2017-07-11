@@ -35,7 +35,7 @@
         android:layout_marginRight="16dp"
         android:ems="10"
         android:src="@drawable/up_chevron"
-        android:contentDescription="up_chevron"
+        android:contentDescription="@string/selection_up_chevron"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         android:cropToPadding="false"

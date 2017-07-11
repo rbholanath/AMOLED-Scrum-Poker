@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:text="0"
+            android:text="@string/numbers_0"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
 
@@ -41,7 +41,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="½"/>
+            android:text="@string/numbers_half"/>
 
         <Button
             android:id="@+id/button2"
@@ -52,7 +52,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="1"/>
+            android:text="@string/numbers_1"/>
 
     </LinearLayout>
 
@@ -79,7 +79,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="2"/>
+            android:text="@string/numbers_2"/>
 
         <Button
             android:id="@+id/button4"
@@ -90,7 +90,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="3"/>
+            android:text="@string/numbers_3"/>
 
         <Button
             android:id="@+id/button5"
@@ -101,7 +101,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="5"/>
+            android:text="@string/numbers_5"/>
     </LinearLayout>
 
     <LinearLayout
@@ -128,7 +128,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="8"/>
+            android:text="@string/numbers_8"/>
 
         <Button
             android:id="@+id/button7"
@@ -139,7 +139,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="13"/>
+            android:text="@string/numbers_13"/>
 
         <Button
             android:id="@+id/button8"
@@ -150,7 +150,7 @@
             android:fontFamily="sans-serif-thin"
             android:textColor="@android:color/white"
             android:textSize="68sp"
-            android:text="20"/>
+            android:text="@string/numbers_20"/>
     </LinearLayout>
 
     <LinearLayout
@@ -174,7 +174,7 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:text="40"
+            android:text="@string/numbers_40"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
 
@@ -185,7 +185,7 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:text="100"
+            android:text="@string/numbers_100"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
 
@@ -196,7 +196,7 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="sans-serif-thin"
-            android:text="∞"
+            android:text="@string/infinity"
             android:textColor="@android:color/white"
             android:textSize="68sp"/>
     </LinearLayout>
