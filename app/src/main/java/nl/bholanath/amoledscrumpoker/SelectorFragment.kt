@@ -3,14 +3,11 @@ package nl.bholanath.amoledscrumpoker
 import android.app.Activity
 import android.app.Fragment
 import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
+import android.support.constraint.ConstraintLayout
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import kotlinx.android.synthetic.main.fragment_selector.*
 
-open class SelectorFragment : Fragment(), View.OnClickListener
+abstract class SelectorFragment : Fragment(), View.OnClickListener
 {
     var mCallback: OnSelectorActivityInteractionListener? = null
 
@@ -22,22 +19,6 @@ open class SelectorFragment : Fragment(), View.OnClickListener
     companion object
     {
         const val CHOSEN_VALUE = "nl.bholanath.amoledscrumpoker.message"
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-    {
-        return inflater.inflate(R.layout.fragment_selector, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?)
-    {
-        super.onActivityCreated(savedInstanceState)
-        setOnClickListeners()
     }
 
     override fun onAttach(context: Context)
@@ -74,9 +55,9 @@ open class SelectorFragment : Fragment(), View.OnClickListener
         mCallback!!.onSelectionMade(view.text)
     }
 
-    private fun setOnClickListeners()
+    protected fun setOnClickListeners(container: ConstraintLayout)
     {
-        val buttons = fragment_selector.touchables
+        val buttons = container.touchables
 
         for (button in buttons)
         {

@@ -1,13 +1,12 @@
 package nl.bholanath.amoledscrumpoker
 
 import android.app.Activity
-import android.os.Bundle
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.TextView
 import nl.bholanath.amoledscrumpoker.helpers.AppPreferences
 
-open class ChosenNumber : Activity()
+abstract class ChosenNumber : Activity()
 {
     companion object
     {
@@ -23,11 +22,7 @@ open class ChosenNumber : Activity()
 
     lateinit var _scaleGestureDetector: ScaleGestureDetector
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chosen_number)
-    }
+    abstract fun showChosenValue()
 
     @Suppress("UNUSED_PARAMETER")
     fun arrowTapped(view: View?)
@@ -54,8 +49,6 @@ open class ChosenNumber : Activity()
 
         setupPinchToZoom(textView)
     }
-
-    open fun showChosenValue() { }
 
     private fun setupPinchToZoom(textView: TextView)
     {
