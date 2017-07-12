@@ -10,16 +10,6 @@ import nl.bholanath.amoledscrumpoker.helpers.AppPreferences
 
 class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionListener
 {
-    companion object
-    {
-        const val DEFAULT_HIDE = true
-        const val DEFAULT_SWIPE = true
-        const val DEFAULT_FONT_SMALL = true
-        const val DEFAULT_ZOOM = true
-        const val DEFAULT_ANIMATION_SPEED_NORMAL = true
-        const val SHARED_PREFERENCE_KEY = "nl.bholanath.amoledscrumpoker.shared_preferences"
-    }
-
     override fun onSelectionMade(message: CharSequence)
     {
         val newActivity = if (AppPreferences.getPreferenceSwipe(this) && AppPreferences.getPreferenceHide(this))
