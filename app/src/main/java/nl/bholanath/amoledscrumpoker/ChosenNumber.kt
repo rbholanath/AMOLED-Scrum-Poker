@@ -24,6 +24,8 @@ abstract class ChosenNumber : Activity()
 
     abstract fun showChosenValue()
 
+    var animationStarted = false
+
     @Suppress("UNUSED_PARAMETER")
     fun arrowTapped(view: View?)
     {

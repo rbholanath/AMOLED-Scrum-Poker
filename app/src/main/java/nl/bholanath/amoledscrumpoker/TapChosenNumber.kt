@@ -56,10 +56,12 @@ class TapChosenNumber : ChosenNumber()
 
     override fun showChosenValue()
     {
-        if (textView.currentTextColor == TapChosenNumber.TEXT_COLOR)
+        if (animationStarted)
         {
             return
         }
+
+        animationStarted = true
 
         val animationSpeed = if (AppPreferences.getPreferenceAnimationSpeedNormal(this))
                                  ChosenNumber.ANIMATION_SPEED_NORMAL

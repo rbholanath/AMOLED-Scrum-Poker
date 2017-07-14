@@ -60,10 +60,12 @@ class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
 
     override fun showChosenValue()
     {
-        if (swipeSelection.visibility == View.VISIBLE)
+        if (animationStarted)
         {
             return
         }
+
+        animationStarted = true
 
         val animationSpeed = if (AppPreferences.getPreferenceAnimationSpeedNormal(this))
             ChosenNumber.ANIMATION_SPEED_NORMAL
