@@ -12,9 +12,9 @@ abstract class ChosenNumber : Activity()
     {
         const val FONT_SIZE_MINIMUM = 50f
         const val FONT_SIZE_STANDARD_SMALL = 150f
-        const val FONT_SIZE_SMALL = 235f
-        const val FONT_SIZE_MEDIUM = 350f
-        const val FONT_SIZE_LARGE = 500f
+        const val FONT_SIZE_SMALL = 200f
+        const val FONT_SIZE_MEDIUM = 310f
+        const val FONT_SIZE_LARGE = 440f
 
         const val ANIMATION_SPEED_NORMAL = 1000L
         const val ANIMATION_SPEED_FAST = 500L
