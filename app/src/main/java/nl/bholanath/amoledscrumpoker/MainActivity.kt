@@ -12,12 +12,9 @@ class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionL
 {
     companion object
     {
-        const val DEFAULT_HIDE = true
-        const val DEFAULT_SWIPE = true
-        const val DEFAULT_FONT_SMALL = true
-        const val DEFAULT_ZOOM = true
-        const val DEFAULT_ANIMATION_SPEED_NORMAL = true
-        const val SHARED_PREFERENCE_KEY = "nl.bholanath.amoledscrumpoker.shared_preferences"
+        const val FIRST_MENU_ITEM = "Numbers"
+        const val SECOND_MENU_ITEM = "TShirt"
+        const val THIRD_MENU_ITEM = "Settings"
     }
 
     override fun onSelectionMade(message: CharSequence)
@@ -55,15 +52,15 @@ class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionL
         {
             R.id.action_numbers ->
             {
-                switchFragments(NumberSelectorFragment())
+                switchFragments({ NumberSelectorFragment() }, FIRST_MENU_ITEM)
             }
             R.id.action_t_shirt ->
             {
-                switchFragments(TshirtSelectorFragment())
+                switchFragments({ TshirtSelectorFragment() }, SECOND_MENU_ITEM)
             }
             R.id.action_settings ->
             {
-                switchFragments(SettingsFragment())
+                switchFragments({ SettingsFragment() }, THIRD_MENU_ITEM)
             }
             else -> {
                 return false
@@ -73,13 +70,71 @@ class MainActivity : Activity(), SelectorFragment.OnSelectorActivityInteractionL
         return true
     }
 
-    private fun switchFragments(fragment: Fragment)
+    override fun onBackPressed()
     {
-        val transaction = fragmentManager.beginTransaction()
+        val backStackCount = fragmentManager.backStackEntryCount
 
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
+        if (backStackCount == 0)
+        {
+            super.onBackPressed()
+            return
+        }
 
-        transaction.commit()
+        if (backStackCount == 1)
+        {
+            super.onBackPressed()
+            bottom_navigation.menu.getItem(0).isChecked = true
+            return
+        }
+
+        val tag = fragmentManager.getBackStackEntryAt(fragmentManager.backStackEntryCount - 2).name
+
+        super.onBackPressed()
+
+        val menuId = when (tag)
+        {
+            FIRST_MENU_ITEM -> 0
+            SECOND_MENU_ITEM -> 1
+            THIRD_MENU_ITEM -> 2
+            else -> { return }
+        }
+
+        bottom_navigation.menu.getItem(menuId).isChecked = true
+    }
+
+    private fun switchFragments(fragmentFunction: () -> Fragment, tag: String)
+    {
+        if (fragmentManager.backStackEntryCount == 0 && tag == FIRST_MENU_ITEM)
+        {
+            return
+        }
+
+        if (isFragmentInBackStack(tag))
+        {
+            fragmentManager.popBackStackImmediate(tag, 0)
+        }
+        else
+        {
+            val transaction = fragmentManager.beginTransaction()
+
+            transaction.replace(R.id.fragment_container, fragmentFunction(), tag)
+
+            transaction.addToBackStack(tag)
+
+            transaction.commit()
+        }
+    }
+
+    private fun isFragmentInBackStack(fragmentTagName: String): Boolean
+    {
+        for (entry in 0..fragmentManager.backStackEntryCount - 1)
+        {
+            if (fragmentTagName == fragmentManager.getBackStackEntryAt(entry).getName())
+            {
+                return true
+            }
+        }
+
+        return false
     }
 }
