@@ -14,7 +14,7 @@ class SwipeChosenNumber : ChosenNumber(), GestureDetector.OnGestureListener
     companion object
     {
         const val SWIPE_MIN_DISTANCE = 500
-        const val SWIPE_MAX_OFF_PATH = 250
+        const val SWIPE_MAX_OFF_PATH = 350
         const val SWIPE_THRESHOLD_VELOCITY = 200
     }
 
